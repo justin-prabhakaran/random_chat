@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Stack(
                       children: [
-                        Text('Connect With People'),
+                        const Text('Connect With People'),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
