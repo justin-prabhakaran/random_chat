@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:random_chat/pages/home/bloc/home_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:random_chat/pages/home/ui/home_ui.dart';
+import 'package:random_chat/pages/login/bloc/login_bloc.dart';
 
 void main() async {
-  await ScreenUtil.ensureScreenSize();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -13,15 +14,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(428, 926),
-        builder: (context, child) => MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                  useMaterial3: true,
-                  fontFamily: 'Poppins',
-                  scaffoldBackgroundColor: Colors.white),
-              home: const HomeScreen(),
-            ));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => HomeBloc()),
+        BlocProvider(create: (context) => LoginBloc()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            useMaterial3: true,
+            fontFamily: 'Poppins',
+            scaffoldBackgroundColor: Colors.white),
+        home: const HomeScreen(),
+      ),
+    );
   }
 }
